@@ -1,22 +1,113 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, X, Bike, Bus, Sparkles, CheckCircle, QrCode, User } from 'lucide-react';
+import { Star, MapPin, Maximize2, X, Bike, Bus, Sparkles, CheckCircle, QrCode, RefreshCw, User } from 'lucide-react';
 import { mockUser, mockRanking } from '../data/mockData';
+import { generateDailyTask } from '../services/openai';
+import type { GeneratedTask } from '../services/openai';
 import './HomePageNew.css';
 
 export function HomePage() {
   const navigate = useNavigate();
   const [showBikeScanner, setShowBikeScanner] = useState(false);
   const [showTicketModal, setShowTicketModal] = useState(false);
+  const [isGeneratingTask, setIsGeneratingTask] = useState(false);
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationResult, setVerificationResult] = useState<{ success: boolean; message: string } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
-  // Przykładowe zadanie generowane przez AI (będzie z backendu)
-  const dailyTask = {
-    id: 'task-1',
-    title: 'Wybierz dziś komunikację miejską',
-    description: 'Zamiast samochodu skorzystaj z MPK i zdobądź dodatkowe punkty dla swojego osiedla',
-    points: 50,
-    completed: false,
-    icon: '🚌',
+  // Zadanie generowane przez AI - sprawdzamy localStorage
+  const [dailyTask, setDailyTask] = useState<GeneratedTask>(() => {
+    const saved = localStorage.getItem('dailyTask');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return {
+      id: 'task-1',
+      title: 'Wybierz dziś komunikację miejską',
+      description: 'Zamiast samochodu skorzystaj z MPK i zdobądź dodatkowe punkty dla swojego osiedla',
+      points: 50,
+      completed: false,
+      icon: '🚌',
+    };
+  });
+
+  // Zapisz zadanie do localStorage przy każdej zmianie
+  useEffect(() => {
+    localStorage.setItem('dailyTask', JSON.stringify(dailyTask));
+  }, [dailyTask]);
+
+  // Funkcja generowania zadania z OpenAI
+  const handleGenerateTask = async () => {
+    setIsGeneratingTask(true);
+    try {
+      const newTask = await generateDailyTask();
+      setDailyTask(newTask);
+    } catch (error) {
+      console.error('Failed to generate task:', error);
+    } finally {
+      setIsGeneratingTask(false);
+    }
+  };
+
+  // Funkcja weryfikacji zadania przez zdjęcie
+  const handleCompleteTask = () => {
+    if (dailyTask.completed) return;
+    setShowVerificationModal(true);
+  };
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Sprawdź czy to obraz
+    if (!file.type.startsWith('image/')) {
+      setVerificationResult({
+        success: false,
+        message: 'Proszę wybrać plik graficzny (JPG, PNG, etc.)',
+      });
+      return;
+    }
+
+    setIsVerifying(true);
+    setVerificationResult(null);
+
+    try {
+      const { verifyTaskCompletion } = await import('../services/openai');
+      const result = await verifyTaskCompletion(
+        dailyTask.title,
+        dailyTask.description,
+        file
+      );
+
+      setVerificationResult({
+        success: result.verified,
+        message: result.message,
+      });
+
+      if (result.verified) {
+        // Oznacz zadanie jako wykonane
+        setDailyTask(prev => ({ ...prev, completed: true }));
+        
+        // Zamknij modal po 2 sekundach
+        setTimeout(() => {
+          setShowVerificationModal(false);
+          setVerificationResult(null);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Verification error:', error);
+      setVerificationResult({
+        success: false,
+        message: 'Wystąpił błąd podczas weryfikacji. Spróbuj ponownie.',
+      });
+    } finally {
+      setIsVerifying(false);
+      // Wyczyść input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   return (
@@ -49,6 +140,14 @@ export function HomePage() {
             <h3>Dzisiejsze wyzwanie</h3>
             <p className="task-subtitle">Wygenerowane specjalnie dla Ciebie</p>
           </div>
+          <button 
+            className="generate-task-btn" 
+            onClick={handleGenerateTask}
+            disabled={isGeneratingTask}
+            title="Wygeneruj nowe zadanie"
+          >
+            <RefreshCw size={16} className={isGeneratingTask ? 'spinning' : ''} />
+          </button>
         </div>
         <div className="task-card">
           <div className="task-emoji">{dailyTask.icon}</div>
@@ -60,7 +159,12 @@ export function HomePage() {
               <span>+{dailyTask.points} punktów</span>
             </div>
           </div>
-          <button className="complete-task-btn">
+          <button 
+            className={`complete-task-btn ${dailyTask.completed ? 'completed' : ''}`}
+            onClick={handleCompleteTask}
+            disabled={dailyTask.completed}
+            title={dailyTask.completed ? 'Zadanie wykonane!' : 'Zweryfikuj wykonanie zadania'}
+          >
             <CheckCircle size={20} />
           </button>
         </div>
@@ -204,6 +308,82 @@ export function HomePage() {
                   <span className="ticket-btn-price">60.00 zł</span>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Task Verification Modal */}
+      {showVerificationModal && (
+        <div className="map-modal">
+          <div className="verification-modal-content">
+            <div className="map-modal-header">
+              <h2>Zweryfikuj zadanie</h2>
+              <button 
+                className="close-modal-btn" 
+                onClick={() => {
+                  setShowVerificationModal(false);
+                  setVerificationResult(null);
+                }}
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="verification-content">
+              {isVerifying ? (
+                <div className="verifying-state">
+                  <div className="verification-loader">
+                    <div className="loader-circle"></div>
+                    <div className="loader-circle"></div>
+                    <div className="loader-circle"></div>
+                  </div>
+                  <p className="verification-loading-text">Analizuję zdjęcie...</p>
+                  <p className="verification-loading-subtext">AI sprawdza wykonanie zadania</p>
+                </div>
+              ) : !verificationResult ? (
+                <>
+                  <div className="verification-task-card">
+                    <div className="verification-task-emoji">{dailyTask.icon}</div>
+                    <div>
+                      <h4 className="verification-task-title">{dailyTask.title}</h4>
+                      <p className="verification-task-desc">{dailyTask.description}</p>
+                    </div>
+                  </div>
+                  <p className="verification-instruction">
+                    Wyślij zdjęcie potwierdzające wykonanie tego zadania
+                  </p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                    style={{ display: 'none' }}
+                  />
+                  <button
+                    className="upload-photo-btn"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <span>Wybierz zdjęcie z galerii</span>
+                  </button>
+                </>
+              ) : (
+                <div className={`verification-result ${verificationResult.success ? 'success' : 'failure'}`}>
+                  <h3 className="verification-title">
+                    {verificationResult.success ? 'Gratulacje!' : 'Ups...'}
+                  </h3>
+                  <p className="verification-message">{verificationResult.message}</p>
+                  {!verificationResult.success && (
+                    <button
+                      className="try-again-btn"
+                      onClick={() => {
+                        setVerificationResult(null);
+                      }}
+                    >
+                      Spróbuj ponownie
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
