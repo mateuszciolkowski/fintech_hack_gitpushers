@@ -1,10 +1,11 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Trophy, User } from 'lucide-react';
+import { Home, Trophy, User, Bell } from 'lucide-react';
 import './Layout.css';
 
 const navItems = [
   { path: '/', icon: Home, label: 'Zadania' },
   { path: '/ranking', icon: Trophy, label: 'Ranking' },
+  { path: '/announcements', icon: Bell, label: 'Ogłoszenia' },
   { path: '/profile', icon: User, label: 'Profil' },
 ];
 
