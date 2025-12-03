@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, MapPin, Maximize2, X, Bike, Bus, Sparkles, CheckCircle, QrCode, RefreshCw, User } from 'lucide-react';
+import { Star, X, Bike, Bus, Sparkles, CheckCircle, QrCode, RefreshCw, User } from 'lucide-react';
 import { mockUser, mockRanking } from '../data/mockData';
 import { generateDailyTask } from '../services/openai';
 import type { GeneratedTask } from '../services/openai';
