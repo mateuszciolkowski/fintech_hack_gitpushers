@@ -29,8 +29,8 @@ FROM nginx:alpine AS production
 # Upewnij się, że '/app/dist' jest poprawną ścieżką wyjściową budowania (może to być też /app/build, /app/out itp.)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Opcjonalnie: Kopiowanie niestandardowej konfiguracji Nginx (jeśli potrzebujesz)
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Kopiowanie niestandardowej konfiguracji Nginx dla obsługi React Router
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Domyślny port Nginx to 80, który wystawiamy.
 EXPOSE 3002
