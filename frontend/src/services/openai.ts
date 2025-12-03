@@ -147,11 +147,11 @@ Przykłady weryfikacji:
 Odpowiedz TYLKO w formacie JSON:
 {
   "verified": true/false,
-  "message": "Krótka wiadomość dla użytkownika (max 80 znaków)"
+  "message": "Krótka, przyjazna wiadomość dla użytkownika (max 60 znaków)"
 }
 
-Jeśli zdjęcie pasuje do zadania: verified: true, message: "Świetnie! Zadanie zaliczone!"
-Jeśli zdjęcie NIE pasuje: verified: false, message: "To zdjęcie nie potwierdza wykonania zadania. Spróbuj ponownie."`;
+Jeśli zdjęcie pasuje do zadania: verified: true, message np: "Brawo! Wykonałeś zadanie!" lub "Super! Widzimy, że byłeś tam!"
+Jeśli zdjęcie NIE pasuje: verified: false, message np: "Hmm, to chyba nie to miejsce. Spróbuj ponownie!" lub "Nie widzimy potwierdzenia na zdjęciu"`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -214,7 +214,7 @@ Jeśli zdjęcie NIE pasuje: verified: false, message: "To zdjęcie nie potwierdz
     // Parsuj JSON z odpowiedzi
     const result = JSON.parse(cleanedContent.trim());
 
-    console.log('✅ Wynik weryfikacji:', result);
+    console.log('Wynik weryfikacji:', result);
 
     return {
       verified: result.verified || false,

@@ -436,14 +436,27 @@ export function HomePage() {
               </button>
             </div>
             <div className="verification-content">
-              {!verificationResult ? (
+              {isVerifying ? (
+                <div className="verifying-state">
+                  <div className="verification-loader">
+                    <div className="loader-circle"></div>
+                    <div className="loader-circle"></div>
+                    <div className="loader-circle"></div>
+                  </div>
+                  <p className="verification-loading-text">Analizuję zdjęcie...</p>
+                  <p className="verification-loading-subtext">AI sprawdza wykonanie zadania</p>
+                </div>
+              ) : !verificationResult ? (
                 <>
+                  <div className="verification-task-card">
+                    <div className="verification-task-emoji">{dailyTask.icon}</div>
+                    <div>
+                      <h4 className="verification-task-title">{dailyTask.title}</h4>
+                      <p className="verification-task-desc">{dailyTask.description}</p>
+                    </div>
+                  </div>
                   <p className="verification-instruction">
-                    Prześlij zdjęcie potwierdzające wykonanie zadania:
-                  </p>
-                  <p className="verification-task-info">
-                    <strong>{dailyTask.title}</strong><br />
-                    {dailyTask.description}
+                    Wyślij zdjęcie potwierdzające wykonanie tego zadania
                   </p>
                   <input
                     ref={fileInputRef}
@@ -455,26 +468,15 @@ export function HomePage() {
                   <button
                     className="upload-photo-btn"
                     onClick={() => fileInputRef.current?.click()}
-                    disabled={isVerifying}
                   >
-                    {isVerifying ? (
-                      <>
-                        <RefreshCw size={20} className="spinning" />
-                        <span>Weryfikacja...</span>
-                      </>
-                    ) : (
-                      <>
-                        📸
-                        <span>Wybierz zdjęcie</span>
-                      </>
-                    )}
+                    <span>Wybierz zdjęcie z galerii</span>
                   </button>
                 </>
               ) : (
                 <div className={`verification-result ${verificationResult.success ? 'success' : 'failure'}`}>
-                  <div className="verification-icon">
-                    {verificationResult.success ? '✅' : '❌'}
-                  </div>
+                  <h3 className="verification-title">
+                    {verificationResult.success ? 'Gratulacje!' : 'Ups...'}
+                  </h3>
                   <p className="verification-message">{verificationResult.message}</p>
                   {!verificationResult.success && (
                     <button
