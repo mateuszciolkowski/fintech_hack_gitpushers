@@ -1,11 +1,13 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Home, Trophy, User } from 'lucide-react';
+import { Newspaper, Calendar, User, ShoppingCart, Menu } from 'lucide-react';
 import './Layout.css';
 
 const navItems = [
-  { path: '/', icon: Home, label: 'Zadania' },
-  { path: '/ranking', icon: Trophy, label: 'Ranking' },
-  { path: '/profile', icon: User, label: 'Profil' },
+  { path: '/', icon: Newspaper, label: 'NEWSY' },
+  { path: '/events', icon: Calendar, label: 'WYDARZENIA' },
+  { path: '/profile', icon: User, label: 'PROFIL', highlight: true },
+  { path: '/ranking', icon: ShoppingCart, label: 'KOSZYK' },
+  { path: '#', icon: Menu, label: 'MENU' },
 ];
 
 export function Layout() {
@@ -24,8 +26,8 @@ export function Layout() {
           return (
             <button
               key={item.path}
-              className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={() => navigate(item.path)}
+              className={`nav-item ${isActive ? 'active' : ''} ${item.highlight ? 'highlight' : ''}`}
+              onClick={() => item.path !== '#' && navigate(item.path)}
             >
               <Icon size={24} />
               <span>{item.label}</span>

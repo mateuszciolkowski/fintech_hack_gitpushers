@@ -4,3 +4,36 @@
   width: 100%;
   min-height: 100vh;
 }
+
+/* Global color variables for Łódź theme */
+:root {
+  --primary-blue: #0099FF;
+  --primary-dark-blue: #0077DD;
+  --primary-pink: #E91E63;
+  --dark-pink: #C2185B;
+  --bg-light: #f8f8f8;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-muted: #999;
+  --border-light: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Phone-like container */
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--bg-light);
+}

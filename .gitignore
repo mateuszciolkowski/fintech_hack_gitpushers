@@ -1,0 +1,51 @@
+# Zignoruj wszystko z Pythona
+# -----------------------------
+# Środowisko wirtualne Pythona (venv)
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Pliki i foldery Django/Pythona
+*.pyc
+__pycache__/
+*.so
+*.egg
+.tox/
+.mypy_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Django - Bazy danych i media
+db.sqlite3
+/media/
+
+# Zignoruj wszystko z Node/JavaScript/TypeScript/Vite
+# ----------------------------------------------------
+# Zależności - katalog node_modules
+/node_modules
+
+# Skompilowane/zbudowane pliki
+/dist
+/build
+/out
+
+# Logi
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Konfiguracja IDE/edytorów
+.DS_Store
+.idea/
+.vscode/
+
+# Zmienne środowiskowe
+.env
+
+# Pliki TypeScript/JavaScript generowane przez kompilator
+*.tsbuildinfo
