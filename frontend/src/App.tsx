@@ -8,6 +8,7 @@ import { ChallengePage } from './pages/ChallengePage';
 import { GenerateQRPage } from './pages/GenerateQRPage';
 import { EventsPage } from './pages/EventsPage';
 import { EventDetailsPage } from './pages/EventDetailsPage';
+import { AnnouncementsPage } from './pages/AnnouncementsPage';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="ranking" element={<RankingPage />} />
+          <Route path="announcements" element={<AnnouncementsPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="generate" element={<GenerateQRPage />} />
           <Route path="events" element={<EventsPage />} />

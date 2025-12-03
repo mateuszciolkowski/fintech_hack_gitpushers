@@ -13,9 +13,9 @@ services:
       dockerfile: Dockerfile
 
     # Mapowanie portów: HOST_PORT:CONTAINER_PORT
-    # Umożliwia dostęp do aplikacji przez port 80 na hoście (http://localhost:80)
+    # Umożliwia dostęp do aplikacji przez port 3002 na hoście
     ports:
-      - "3002:80"
+      - "3002:3002"
 
     # Jeśli masz bazę danych lub inne usługi, możesz je tutaj dodać
     # depends_on:

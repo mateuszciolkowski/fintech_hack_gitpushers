@@ -2,22 +2,53 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 96px;
+  padding-bottom: 80px;
 }
 
 .ranking-header-new {
-  text-align: center;
-  padding: 20px 0;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  max-width: 448px;
+  width: calc(100% - 32px);
+}
+
+.ranking-header-new .header-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ranking-header-new .header-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #0066B3 0%, #004c8c 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
 }
 
 .ranking-header-new h1 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   color: #212121;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
 }
 
-.ranking-header-new p {
-  font-size: 14px;
+.ranking-header-new .header-subtitle {
+  font-size: 13px;
   color: #757575;
   margin: 0;
 }

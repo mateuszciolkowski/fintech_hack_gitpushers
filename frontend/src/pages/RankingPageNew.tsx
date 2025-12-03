@@ -15,8 +15,15 @@ export function RankingPage() {
   return (
     <div className="ranking-page-new">
       <header className="ranking-header-new">
-        <h1>Ranking</h1>
-        <p>Sprawdź swoją pozycję w osiedlu i całym mieście</p>
+        <div className="header-content">
+          <div className="header-icon">
+            <Medal size={28} />
+          </div>
+          <div>
+            <h1>Ranking</h1>
+            <p className="header-subtitle">Sprawdź swoją pozycję w osiedlu i całym mieście</p>
+          </div>
+        </div>
       </header>
 
       <div className="tab-switcher-new">
