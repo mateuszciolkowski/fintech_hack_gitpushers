@@ -5,26 +5,7 @@ import './HomePageNew.css';
 export function HomePage() {
   const [activeTab, setActiveTab] = useState('MICHAŁ');
 
-  const user = {
-    firstName: 'MICHAŁ',
-    lastName: 'KAŹMIERCZAK',
-    id: '9900000994461',
-  };
-
-  const tickets = [
-    {
-      id: 1,
-      title: 'ŚWIĘTA',
-      subtitle: '01-24 GRUDNIA',
-      type: 'KARTA ŁODZIANINA',
-    },
-    {
-      id: 2,
-      title: 'Lo!Moto',
-      subtitle: 'BILETY -24h',
-      type: 'MŁAD W ŁOMACH',
-    }
-  ];
+  // Usunięto tablicę 'tickets', ponieważ używasz teraz statycznych obrazków
 
   return (
     <div className="home-page-redesigned">
@@ -69,19 +50,30 @@ export function HomePage() {
         </div>
       )}
 
-      {/* Tickets Section */}
+      {/* Tickets Section - Zmienione na statyczne obrazy */}
       <div className="tickets-section">
-        <h2>POSIADANE BILETY</h2>
         <div className="tickets-grid">
-          {tickets.map(ticket => (
-            <div key={ticket.id} className="ticket-card">
-              <div className="ticket-content">
-                <h4>{ticket.title}</h4>
-                <p className="ticket-subtitle">{ticket.subtitle}</p>
-              </div>
-            </div>
-          ))}
+          
+          {/* Obrazek 1: święta.png */}
+          <div className="ticket-card image-ticket">
+            <img 
+              src="/swieta.png" 
+              alt="Święta" 
+              className="ticket-image"
+            />
+          </div>
+
+          {/* Obrazek 2: lomot.png */}
+          <div className="ticket-card image-ticket">
+            <img 
+              src="/lomot.png" 
+              alt="Lo!Moto" 
+              className="ticket-image"
+            />
+          </div>
+
         </div>
+        <h2>POSIADANE BILETY</h2>
 
         {/* CTA Buttons */}
         <div className="cta-buttons">
@@ -93,7 +85,7 @@ export function HomePage() {
           </button>
         </div>
 
-        {/* Empty state message */}
+        {/* Empty state message (możesz to usunąć, jeśli zawsze będą obrazy) */}
         <div className="empty-state">
           <p>Nie posiadasz jeszcze biletów. Kliknij w przycisk aby dokonać!</p>
         </div>
