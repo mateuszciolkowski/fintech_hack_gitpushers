@@ -1,0 +1,271 @@
+.events-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 96px;
+}
+
+.events-header {
+  background: white;
+  border-radius: 0;
+  padding: 20px 16px;
+  box-shadow: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+  max-width: none;
+  transform: none;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 48px;
+  height: 48px;
+  background: #e3f2fd;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ee9342;
+  flex-shrink: 0;
+}
+
+.events-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #212121;
+  margin: 0 0 4px 0;
+}
+
+.header-subtitle {
+  font-size: 13px;
+  color: #757575;
+  margin: 0;
+}
+
+.header-spacer {
+  width: 44px;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 20px 16px;
+}
+
+.event-card-full {
+  background: white;
+  border: none;
+  border-radius: 0;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: none;
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.event-card-full:last-child {
+  border-bottom: none;
+}
+
+.event-card-full:hover {
+  box-shadow: none;
+  transform: none;
+  background: #fafafa;
+}
+
+.event-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: #ee9342;
+  padding: 0;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.event-card-full h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.event-location-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 13px;
+}
+
+.event-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.event-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 0;
+  border-top: none;
+}
+
+.event-points-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #FFC107;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.event-details-btn {
+  background: #ee9342;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.event-details-btn:hover {
+  background: #c76621;
+}
+
+/* Map Section */
+.map-section {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.map-header {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.map-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #212121;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-map-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ee9342;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expand-map-btn:hover {
+  background: #c76621;
+}
+
+#events-map {
+  width: 100%;
+  height: 300px;
+}
+
+/* Map Modal */
+.map-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.map-modal-content {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 1200px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.map-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.map-modal-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212121;
+  margin: 0;
+}
+
+.close-modal-btn {
+  background: #f5f5f5;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.close-modal-btn:hover {
+  background: #e0e0e0;
+  color: #1a1a1a;
+}
+
+.full-map {
+  flex: 1;
+  width: 100%;
+}

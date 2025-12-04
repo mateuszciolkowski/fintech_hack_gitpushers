@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  web:
+    # Nazwa obrazu po zbudowaniu
+    image: fintech_backend_img
+    
+    # Instrukcje budowania (użyj pliku Dockerfile w bieżącym katalogu)
+    build: .
+    
+    # Mapowanie portów: HOST_PORT:CONTAINER_PORT
+    ports:
+      - "8000:8000"
+      
+    # Zależność od bazy danych
+    depends_on:
+      - db
+      
+    # Zmienne środowiskowe, które będą dostępne w aplikacji Django
+    environment:
+      # Ustawienie zmiennych dla połączenia z PostgreSQL
+      - DJANGO_DB_NAME=postgres
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=secret
+      - DJANGO_DB_HOST=db 
+      - DJANGO_DB_PORT=5432
+      
+    # Komenda uruchomienia serwera (używamy python manage.py)
+    command: python manage.py runserver 0.0.0.0:8000
+
+    # Opcjonalnie: Montowanie wolumenu, aby zmiany kodu na hoście były widoczne w kontenerze
+    volumes:
+      - .:/app
+
+  db:
+    # Używamy oficjalnego obrazu PostgreSQL
+    image: postgres:16-alpine
+    
+    # Stały wolumen na dane bazy danych, aby nie stracić ich po zatrzymaniu kontenera
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      
+    # Ustawienie zmiennych środowiskowych PostgreSQL
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+
+# Definicja wolumenów (miejsca przechowywania danych na Twoim komputerze)
+volumes:
+  postgres_data:

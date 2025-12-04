@@ -1,0 +1,23 @@
+version: "3.8" # Używamy nowoczesnej wersji
+
+services:
+  frontend:
+    # Nazwa, jaką otrzyma obraz po zbudowaniu, np. 'fintech-app'
+    image: fintech-app
+    
+    # Instrukcja budowania
+    build:
+      # Kontekst budowania (gdzie szukać plików, w tym Dockerfile)
+      context: .
+      # Ścieżka do pliku Dockerfile (jeśli ma inną nazwę niż 'Dockerfile')
+      dockerfile: Dockerfile
+
+    # Mapowanie portów: HOST_PORT:CONTAINER_PORT
+    # Umożliwia dostęp do aplikacji przez port 3002 na hoście
+    ports:
+      - "3002:3002"
+
+    # Jeśli masz bazę danych lub inne usługi, możesz je tutaj dodać
+    # depends_on:
+    #   - api
+    #   - db

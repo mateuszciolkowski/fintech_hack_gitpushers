@@ -1,0 +1,350 @@
+.scan-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 100px);
+  background: white;
+}
+
+.scan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.back-btn {
+  background: white;
+  border: 1px solid #e0e0e0;
+  color: #ee9342;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #fafafa;
+  border-color: #ee9342;
+}
+
+.scan-header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212121;
+  margin: 0;
+}
+
+.header-spacer {
+  width: 44px;
+}
+
+.scan-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Placeholder */
+.scan-placeholder {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.scan-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  color: #ee9342;
+  margin-bottom: 16px;
+  font-size: 64px;
+}
+
+.scan-pulse {
+  position: absolute;
+  inset: -20px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  animation: none;
+}
+
+@keyframes scanPulse {
+  0%, 100% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 0; }
+}
+
+.scan-placeholder h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.scan-placeholder p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 32px 0;
+  max-width: 280px;
+}
+
+.start-scan-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ee9342;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 102, 179, 0.2);
+}
+
+.start-scan-btn:hover {
+  background: #c76621;
+  box-shadow: 0 4px 12px rgba(0, 102, 179, 0.3);
+}
+
+.start-scan-btn:active {
+  transform: scale(0.98);
+}
+
+/* Scanner */
+.scanner-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.qr-reader {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.qr-reader video {
+  border-radius: 20px;
+}
+
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scanner-frame {
+  width: 250px;
+  height: 250px;
+  position: relative;
+}
+
+.corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-color: #00aeef;
+  border-style: solid;
+  border-width: 0;
+}
+
+.corner.top-left {
+  top: 0;
+  left: 0;
+  border-top-width: 4px;
+  border-left-width: 4px;
+  border-top-left-radius: 12px;
+}
+
+.corner.top-right {
+  top: 0;
+  right: 0;
+  border-top-width: 4px;
+  border-right-width: 4px;
+  border-top-right-radius: 12px;
+}
+
+.corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 4px;
+  border-left-width: 4px;
+  border-bottom-left-radius: 12px;
+}
+
+.corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 4px;
+  border-right-width: 4px;
+  border-bottom-right-radius: 12px;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00aeef, transparent);
+  animation: scanLine 2s ease-in-out infinite;
+}
+
+@keyframes scanLine {
+  0%, 100% { top: 10px; }
+  50% { top: calc(100% - 10px); }
+}
+
+.stop-scan-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 20px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #ef4444;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stop-scan-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+/* Result */
+.scan-result {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.result-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.result-icon.success {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  color: white;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4);
+}
+
+.scan-result h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 12px 0;
+}
+
+.result-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 32px 0;
+  word-break: break-all;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scan-again-btn {
+  background: linear-gradient(135deg, #00aeef 0%, #0077b6 100%);
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.go-home-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Error */
+.scan-error {
+  text-align: center;
+  padding: 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.scan-error p {
+  color: #ef4444;
+  margin: 0 0 16px 0;
+}
+
+.scan-error button {
+  background: rgba(239, 68, 68, 0.2);
+  border: none;
+  color: #ef4444;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Tips */
+.scan-tips {
+  margin-top: auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+}
+
+.scan-tips h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 12px 0;
+}
+
+.scan-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.scan-tips li {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+
+.scan-tips li:last-child {
+  margin-bottom: 0;
+}
